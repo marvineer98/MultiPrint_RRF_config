@@ -1,0 +1,63 @@
+; 0:/sys/daemon.g
+; runs continually in background at approximately 10 second intervals
+; We have initiated an infinite loop at the start so that we can do things at intervals less than 10 seconds
+; daemon.g won't be opened again if it it still running
+; everything must be indented by 2 x tabs becasue of the infinite loop at the start to allow checks at intervals less than 10 seconds
+; We have created a global variable in config.g called RunDaemon
+; If RunDaemon is set to "false" nothing inside the infinite loop will run, however daemon.g will still be run every 10 seconds if it exists.
+; Any code outside the infinite loop would run at 10 second intervals provided it came before the loop
+
+;M150 R255 P255 S18
+
+while true	
+	if {exists(global.RunDaemon)} && global.RunDaemon == false
+		; exit the macro
+		M99
+	else
+		; LED control
+		if {state.status} == "paused" || {state.status} == "pausing"
+			M150 R255 B255 P255 S18  ; purple
+		elif {state.status} == "cancelling"
+			M150 R255 P255 S18  ; red
+		elif {state.status} == "updating" || {state.status} == "starting"
+			M150 B255 P255 S18  ; blue
+		elif {state.status} == "halted" || {state.status} == "disconnected"
+				M150 R255 U0 B0 P255 S18  ; red
+				M300 S4000 P100 G4 P150 M300 S3000 P50 ; double beep
+				M150 P0 S18 ; off
+		elif {state.status} == "processing" || {state.status} == "busy"
+			; if door is open while printing
+			if sensors.gpIn[6].value == 1
+				if heat.bedHeaters[0] != -1
+					if {heat.heaters[heat.bedHeaters[0]].current} >= 65
+						M150 R255 U0 B0 P255 S18  ; red
+					elif {heat.heaters[heat.bedHeaters[0]].current} >= 55
+						M150 R255 U80 B0 P255 S18 ; orange
+					elif {heat.heaters[heat.bedHeaters[0]].current} >= 45
+						M150 R255 U255 B0 P255 S18 ; yellow
+			else
+				M150 P0 S18 ; off
+		elif {state.status} == "idle"		
+			; if door is open
+			if sensors.gpIn[6].value == 1
+				if heat.bedHeaters[0] != -1
+					if {heat.heaters[heat.bedHeaters[0]].current} >= 65
+						M150 R255 U0 B0 P255 S18  ; red
+					elif {heat.heaters[heat.bedHeaters[0]].current} >= 55
+						M150 R255 U80 B0 P255 S18 ; orange
+					elif {heat.heaters[heat.bedHeaters[0]].current} >= 45
+						M150 R255 U255 B0 P255 S18 ; yellow
+			else
+				; if hot end is hot
+				if {heat.heaters[1].current} >= 180
+					M150 R255 U0 B0 P255 S18  ; red
+					M300 S4000 P100 G4 P150 M300 S3000 P50 ; double beep
+					M150 P0 S18 ; off
+				elif {heat.heaters[1].current} >= 150
+					M150 R255 U80 B0 P255 S18 ; orange
+				elif {heat.heaters[1].current} >= 70
+					M150 R255 U255 B0 P255 S18 ; yellow
+				else
+					M150 P0 S18 ; off
+		elif {state.status} == "off"
+			M150 P0 S18 ; off
