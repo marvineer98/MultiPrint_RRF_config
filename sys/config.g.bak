@@ -9,4 +9,3 @@ M98 P"config_can.g"
 
 ; define everything that is connected to the main board
 M98 P"config_main.g"
-
