@@ -6,8 +6,6 @@
 var power = 0
 if exists(param.B) && param.B >= 0 && param.B <= 1:
     set var.power = param.B
-else
-    set var.power = 0
 
 ; set each device accordingly
 if !exists(param.D) || param.D == "main":
