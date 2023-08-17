@@ -24,7 +24,7 @@ if tools[state.nextTool].filamentExtruder > -1 && move.extruders[state.nextTool]
 ; create vars and set ToolDock position accordingly (get specific tool dock offset from global array)
 var dockXpos = 0
 var dockYpos = 0
-if state.nextTool < #global.ToolDock_X && state.nextTool < #global.ToolDock_Y && state.nextTool >= 0:
+if state.nextTool < #global.ToolDock_X && state.nextTool < #global.ToolDock_Y && state.nextTool >= 0
 	set var.dockXpos = global.ToolDock_X[state.nextTool]
 	set var.dockYpos = global.ToolDock_Y[state.nextTool]
 else

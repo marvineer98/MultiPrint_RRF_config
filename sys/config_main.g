@@ -48,7 +48,7 @@ if sensors.gpIn[7].value == 1
 M950 P0 C"1.out1" Q500                                               ; main
 M950 P1 C"1.out0" Q500                                               ; head
 if sensors.gpIn[6].value == 1
-                                                                     ; door is closed
+	; door is closed
 	M98 P"/macros/Lights/set.g" D"main" B0.75                           ; turn on main light
 else
 	M98 P"/macros/Lights/set.g" D"main" B0.05

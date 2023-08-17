@@ -17,7 +17,7 @@ if sensors.gpIn[5] == null || sensors.gpIn[5].value == 0
 ; create vars and set ToolDock position accordingly (get specific tool dock offset from global array)
 var dockXpos = 0
 var dockYpos = 0
-if state.previousTool < #global.ToolDock_X && state.previousTool < #global.ToolDock_Y && state.previousTool >= 0:
+if state.previousTool < #global.ToolDock_X && state.previousTool < #global.ToolDock_Y && state.previousTool >= 0
 	set var.dockXpos = global.ToolDock_X[state.previousTool]
 	set var.dockYpos = global.ToolDock_Y[state.previousTool]
 else
