@@ -49,8 +49,7 @@ if {!exists(param.S)}
 	M300 P200                                              
 
 	; turn off all Lights
-	M98 P"/macros/Light-Control/MainLight_OFF.g"
-	M98 P"/macros/Light-Control/HeadLight_OFF.g"
+	M98 P"/macros/Lights/set.g"
 	
 	; turn power off when all thermostatic fans have turned off
 	M81 S1
