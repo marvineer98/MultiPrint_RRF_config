@@ -56,9 +56,14 @@ else
 	set global.ToolDock_X = {-157.7, -67.5,  61.3, 170.0, -50.0}
 if !exists(global.ToolDock_Y)
 	; T0, T1, T2, T3, T>3
-	global ToolDock_Y = { 115.5, 115.7, 115.3, 115.2, -100.0}
+	global ToolDock_Y = {115.5, 115.7, 115.3, 115.2, -100.0}
 else
-	set global.ToolDock_Y = { 115.5, 115.7, 115.3, 115.2, -100.0}
+	set global.ToolDock_Y = {115.5, 115.7, 115.3, 115.2, -100.0}
+
+if !exists(global.cam_positions)
+	global cam_positions = 	{161.37, 79.44, 1}
+else
+	set global.cam_positions = 	{161.37, 79.44, 1}
 
 ; create array for filament scale values (3 scales, each with value and standard deviation)
 if (!exists(global.FilamentScale))
