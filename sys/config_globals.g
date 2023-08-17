@@ -49,12 +49,12 @@ else
 	set global.calibration_movement_step = 100
 
 ; ToolDock Positions as an array
-if (!exists(ToolDock_X))
+if !exists(global.ToolDock_X)
 	; T0, T1, T2, T3, T>3
 	global ToolDock_X = {-157.7, -67.5,  61.3, 170.0, -50.0}
 else
 	set global.ToolDock_X = {-157.7, -67.5,  61.3, 170.0, -50.0}
-if (!exists(ToolDock_Y))
+if !exists(global.ToolDock_Y)
 	; T0, T1, T2, T3, T>3
 	global ToolDock_Y = { 115.5, 115.7, 115.3, 115.2, -100.0}
 else
