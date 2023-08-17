@@ -44,10 +44,14 @@ if sensors.gpIn[7].value == 1
 	M582 T0
 	abort
 
+; Lights
+M950 P0 C"1.out1" Q500                                  ; main
+M950 P1 C"1.out0" Q500                                  ; head
+M98 P"/macros/Lights/set.g" D"main" B0.5                ; turn on main light to half power
 
 ; LED Strip
 M950 E0 U18 T1 C"0.led"
-
+; drive LED strip all white at low power
 M150 R255 U255 B255 P10 S18
 
 
@@ -155,23 +159,26 @@ M563 P0 S"V6 Bowden" D0 H1 F0                          ; define tool 0
 G10 P0 X-8.02 Y38.97 Z-4.7                             ; set tool 0 axis offsets
 G10 P0 R0 S0                                           ; set initial tool 0 active and standby temperatures to 0C
 M572 D0 S0.2                                           ; pressure advance T0
+M308 S8 Y"linear-analog" P"1.io0.in" A"T0FilamentScale" B-65 C3240 ; Filament Weight Scale for tool 0
 
 M563 P1 S"Volcano Bowden" D1 H2 F2                     ; define tool 1
 G10 P1 X-7.92 Y38.96 Z-13.2                            ; set tool 1 axis offsets
 G10 P1 R0 S0                                           ; set initial tool 1 active and standby temperatures to 0C
 M572 D1 S0.3                                           ; pressure advance T1
+M308 S9 Y"linear-analog" P"1.io1.in" A"T1FilamentScale" B45 C4100 ; Filament Weight Scale for tool 1
 
 M563 P2 S"Hemera Direct" D2 H3 F4                      ; define tool 2
 G10 P2 X21.05 Y43.75 Z-5.7                             ; set tool 2 axis offsets
 G10 P2 R0 S0                                           ; set initial tool 2 active and standby temperatures to 0C
 M591 D2 P3 C"121.io1.in"                               ; Configure filament sensing for tool 2
 M572 D2 S0.05                                          ; pressure advance T2
+M308 S10 Y"linear-analog" P"1.io2.in" A"T2FilamentScale" B-233 C8500 ; Filament Weight Scale for tool 2
 
 M563 P3 S"Spindle" R0                                  ; define tool 3
 G10 P3 X0 Y52.50 Z-78.7                                ; set tool 3 axis offsets
 
-M563 P4 S"Pen"                                         ; define tool 3
-G10 P4 X0 Y50.0 Z-21.0                                 ; set tool 3 axis offsets
+M563 P4 S"Pen"                                         ; define tool 4
+G10 P4 X0 Y50.0 Z-21.0                                 ; set tool 4 axis offsets
 
 ;some notes about PA:
 ;the large bowden tool should need a value of 2.0 or 2.1, but the system gets ridiculously slow without cranking up E jerk
@@ -189,10 +196,3 @@ M308 S7 Y"mcu-temp" P"121.dummy" A"1LC MCU"            ;show MCU-temp of CAN exp
 ;DHT Sensor (temp and humidity)
 M308 S11 P"io6.out" Y"dht22" A"Chamber"                ; define DHT22 temperature sensor
 M308 S12 P"S11.1" Y"dhthumidity" A"Rel. Humidity[%]"   ; attach DHT22 humidity sensor to secondary output of temperature sensor
-
-
-
-; Filament Weight Scale for each tool
-M308 S8 Y"linear-analog" P"1.io0.in" A"T0FilamentScale" B-65 C3240
-M308 S9 Y"linear-analog" P"1.io1.in" A"T1FilamentScale" B45 C4100
-M308 S10 Y"linear-analog" P"1.io2.in" A"T2FilamentScale" B-233 C8500

@@ -4,8 +4,5 @@
 ; define all global vars right at the beginning
 M98 P"config_globals.g"
 
-; define everything that is connected to a expansion board
-M98 P"config_can.g"
-
 ; define everything that is connected to the main board
 M98 P"config_main.g"
