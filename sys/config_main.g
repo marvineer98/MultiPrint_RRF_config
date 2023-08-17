@@ -47,7 +47,11 @@ if sensors.gpIn[7].value == 1
 ; Lights
 M950 P0 C"1.out1" Q500                                  ; main
 M950 P1 C"1.out0" Q500                                  ; head
-M98 P"/macros/Lights/set.g" D"main" B0.5                ; turn on main light to half power
+if sensors.gpIn[6].value == 1
+	; door is closed
+	M98 P"/macros/Lights/set.g" D"main" B0.75                ; turn on main light
+else
+	M98 P"/macros/Lights/set.g" D"main" B0.05
 
 ; LED Strip
 M950 E0 U18 T1 C"0.led"

@@ -5,6 +5,6 @@
 M203 X8000 Y8000
 
 ; led bright
-M42 P0 S200
+M98 P"/macros/Lights/set.g" D"main" B0.75
 
 ;M118 S"Door opened"

@@ -14,6 +14,6 @@ else
 	M203 X10000 Y10000
 
 ; led dimm
-M42 P0 S10
+M98 P"/macros/Lights/set.g" D"main" B0.05
 
 ;M118 S"Door closed"
