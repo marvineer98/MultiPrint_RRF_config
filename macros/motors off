@@ -1,2 +1,0 @@
-if state.status != "processing" 
-	M18
