@@ -1,0 +1,5 @@
+if state.status != "processing"
+	M106 P0 S0
+	M106 P2 S0
+	M106 P4 S0
+	M106 P6 S0
