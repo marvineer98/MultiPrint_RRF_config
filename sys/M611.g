@@ -1,1 +1,0 @@
-; check if current filament weight based on M610 is enough
