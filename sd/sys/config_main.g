@@ -108,8 +108,8 @@ M557 X-140:140 Y-90:90 S20:30                                        ; Define me
 
 
 ;Stall Detection
-M915 X S4 F1 R1                                                    ; X Axes
-M915 Y S7 F1 R1                                                    ; Y Axes
+M915 X S5 F1 R1                                                    ; X Axes
+M915 Y S5 F1 R1                                                    ; Y Axes
 
 
 ; Heaters
