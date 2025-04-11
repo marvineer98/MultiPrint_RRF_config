@@ -1,8 +1,19 @@
 ; /macros/Filament/load.g
 ; macro for loading generic filaments into active tool
 ; is called in each filament load script
+; Parameter S: filaments active temp
+; Paramater R: filaments standby temp
 
-M568 A2					; activate current tools heater
+; abort if no active temp was given
+if {!exists(param.S)} | param.S < 0 | param.S > 285
+	M291 T5 P"active temp not provided or out of bound for filament loading" R"error"
+	abort "active temp not provided or out of bound for filament loading"
+; abort if no standby temp was given
+if {!exists(param.R)} | param.R < 0 | param.R > 200
+	M291 T5 P"standby temp not provided or out of bound for filament loading" R"error"
+	abort "standby temp not provided or out of bound for filament loading"
+
+M568 S{param.S} R{param.R} A2		; activate current tools heater
 M116 P{state.currentTool} S30       ; Wait for the temperatures to be reached within 30C margin
 
 M291 P"Press ok to start feeding filament..." R"Load Filament" S3 ; Display new message
@@ -36,4 +47,4 @@ M98 P"/macros/Brush/wipe_activeTool.g" S"ZisLifted"
 M568 A0 				; turn heater off
 
 ; custom G-Code: setup filament weight scale (call M610.g in sys folder)
-M610 S{state.currentTool}
+;M610 S{state.currentTool}
