@@ -52,5 +52,5 @@ else
 	; write vars to the corresponding M-Code
 	M203 X{var.speed} Y{var.speed}
 	M201 X{var.xaccel} Y{var.yaccel} ;acceleration per axes
-	M204 T{var.yaccel * 0.9} P{var.yaccel} ;acceleration per state: T printing, P traveling
+	M204 P{var.yaccel * 0.95} T{var.yaccel} ;acceleration per state: T printing, P traveling
 	M566 X{var.xjerk} Y{var.yjerk}
