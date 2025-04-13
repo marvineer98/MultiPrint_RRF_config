@@ -4,7 +4,6 @@
 G90                                                                  ; send absolute coordinates...
 M83                                                                  ; ...but relative extruder moves
 M550 P"MultiPrint"                                                   ; set printer name
-;M551 P"rniaMvPrinter01"
 M669 K1                                                              ; select CoreXY mode
 M80 C"!pson"                                                         ; invert the PS_ON output for Meanwell power supply
 
@@ -59,8 +58,6 @@ else
 
 ; LED Strip
 M950 E0 U18 T1 C"0.led"
-; drive LED strip all white at low power
-M150 R255 U255 B255 P10 S18
 
 
 ; Drives                   D3: stealthChop2            V4000: switch from stealthChop to to spreadCycle mode at 0.1 mm/sec speed (quiet at standstill) 
@@ -108,8 +105,7 @@ M557 X-140:140 Y-90:90 S20:30                                        ; Define me
 
 
 ;Stall Detection
-M915 X S5 F1 R1                                                    ; X Axes
-M915 Y S5 F1 R1                                                    ; Y Axes
+M915 X Y S5 F1 R1                                                    ; X and Y Axes
 
 
 ; Heaters
@@ -189,11 +185,9 @@ G10 P3 X0 Y52.50 Z-78.7                                              ; set tool 
 M563 P4 S"Pen"                                                       ; define tool 4
 G10 P4 X0 Y50.0 Z-21.0                                               ; set tool 4 axis offsets
 
-;some notes about PA:
-;the large bowden tool should need a value of 2.0 or 2.1, but the system gets ridiculously slow without cranking up E jerk
 
 ; PowerFail Script (use M916 to resume the print from where it stopped)
-M911 S23.6 R23.8 P"M913 X0 Y0 G91 M83 G1 E-5 F1000"                  ; set voltage thresholds and actions to run on power loss
+M911 S23.6 R23.8 P"M913 X0 Y0"                                       ; set voltage thresholds and actions to run on power loss
 
 
 ;MCU Temp Calibration
