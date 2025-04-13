@@ -8,8 +8,11 @@ if {!exists(param.R)} | param.R < 0 | param.R > 200
 	M291 T5 P"standby temp not provided or out of bound for filament unloading" R"error"
 	abort "standby temp not provided or out of bound for filament unloading"
 
+if state.currentTool == -1
+	abort "no tool selected for filament unload"
+
 ; set current tools heater to standby
-M568 R{params.R} A1
+M568 R{param.R} A1
 
 ; Wait for the temperatures to be reached within 10C
 M116 P{state.currentTool} S10
@@ -24,6 +27,8 @@ G1 E-20 F600			; Retract 20 mm of filament at 600mm/min
 if state.currentTool < 2
 	G1 E-700 F3000			; Retract 500 mm of filament at 3000mm/min
 	G1 E-100 F1200			; Retract 100 mm of filament at 1200mm/min
-	G1 E-50 F600			; Retract 50 mm of filament at 600mm/min
+	G1 E-100 F600			; Retract 50 mm of filament at 600mm/min
 
 M568 S0 R0 A0 			; turn off heater and set active and standby temp to 0C
+
+T-1
