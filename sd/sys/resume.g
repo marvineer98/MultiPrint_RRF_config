@@ -10,18 +10,6 @@ if sensors.gpIn[6].value == 1
 else
 	M98 P"/macros/Lights/set.g" D"main" B0.05
 
-var toolToSelect = state.previousTool
-
-; set temperature for the last used tool to active temp
-M568 P{var.toolToSelect} A2
-
-; set bed to active temp again
-M144 S1
-
-
-; select last active tool
-T{var.toolToSelect}
-
 ;turn on HEPA filter fan
 if var.toolToSelect < 4
 	if move.extruders[tools[var.toolToSelect].filamentExtruder].filament == "PET - Innofil"
@@ -29,26 +17,38 @@ if var.toolToSelect < 4
 	else
 		M106 P6 S0.5
 
-; restore last fan speed
-M106 R1
+if state.currentTool == -1
+	var toolToSelect = state.previousTool
 
-; wait for all temps
-M116 S5
+	; set temperature for the last used tool to active temp
+	M568 P{var.toolToSelect} A2
 
-; relative extruder move: extrude 1.25 mm of filament
-M83
-G1 E1.25 F1500
-; retract
-G10
+	; set bed to active temp again
+	M144 S1
+	
+	; select last active tool
+	T{var.toolToSelect}
 
-; brush current tool
-if state.currentTool >= 0
-	M98 P"/macros/Brush/wipe_activeTool.g" S"doNotLiftZ"
+	; restore last fan speed
+	M106 R1
 
-; go to 5mm above position of the last print move and then to the final position
-G0 R1 X0 Y0 F40000
-G0 R1 Z5
-G1 R1 X0 Y0 Z0
+	; wait for all temps
+	M116 S5
 
-;unrectract filament
-G11
+	; relative extruder move: extrude 1.25 mm of filament
+	M83
+	G1 E1.25 F1500
+	; retract
+	G10
+
+	; brush current tool
+	if state.currentTool >= 0
+		M98 P"/macros/Brush/wipe_activeTool.g" S"doNotLiftZ"
+
+	; go to 5mm above position of the last print move and then to the final position
+	G0 R1 X0 Y0 F40000
+	G0 R1 Z5
+	G1 R1 X0 Y0 Z0
+
+	;unrectract filament
+	G11
