@@ -11,7 +11,7 @@ while iterations < #global.heightmapTemps
 
 ; load best fit heightmap
 var fileName = "heightmap_"^var.nearest^".csv"
-if fileexists(var.fileName)
+if fileexists("sys/"^var.fileName)
     echo "loading best fit heightmap for "^var.targetTemp^" °C: "^var.fileName
     G29 S1 P{var.fileName}
 else
