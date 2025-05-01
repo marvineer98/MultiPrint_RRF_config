@@ -25,7 +25,6 @@ M913 X20 Y20 		            ; drop motor currents to 20%
 G1 H1 X-365 F1800 				; move quickly to X axis endstop and stop there (first pass)
 G0 X2                           ; go back a few mm
 G1 H1 X-4 F300                  ; move slowly to X axis endstop once more (second pass)
-;G3 X1 Y1 J1                     ; clear end stop
 
 G90               				; absolute positioning
 
