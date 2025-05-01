@@ -14,8 +14,8 @@ if {!exists(param.S)}
 
 G91               			; relative positioning
 M400 				        ; make sure everything has stopped before we change the motor currents
-M913 X40 Y40 		        ; drop motor currents to 20%
-G1 H2 X2 F1800           ; move in x so that the endstop is free to pass (individual motor mode)
+M913 X20 Y20 		        ; drop motor currents to 20%
+G1 H2 X2 Y2 F1800           ; move in x so that the endstop is free to pass (individual motor mode)
 G1 H1 Y-282 F1800           ; move quickly to Y axis endstop and stop there (first pass)
 G0 Y2                       ; go back a few mm
 G1 H1 Y-4 F300              ; move slowly to Y axis endstop once more (second pass)
