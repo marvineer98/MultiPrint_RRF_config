@@ -4,6 +4,8 @@
 ; P parameter (non-negative integer): additional information about the event, e.g. the subtype of a heater fault or a filament error
 ; S parameter: the full text string describing the fault
 
+; inform user
 echo {param.S}
-
-; TODO: delete tool definition for tools on the timed out board
+; if we are printing, pause immediately
+if state.status == "processing"
+    M25
