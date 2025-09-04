@@ -30,5 +30,3 @@ if state.currentTool < 2
 	G1 E-100 F600			; Retract 50 mm of filament at 600mm/min
 
 M568 S0 R0 A0 			; turn off heater and set active and standby temp to 0C
-
-T-1
