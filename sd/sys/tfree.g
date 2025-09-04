@@ -57,7 +57,7 @@ G53 G1 Y110 F4000					    ; move out a bit
 G53 G1 Y100 F4000					    ; move Out
 
 ; set speeds, jerk and accel. for no active tool
-M98 P"/macros/Speeds/set_speed.g"
+M98 P"/macros/Speeds/set.g"
 
 ; reset X and Y limits
 M98 P"/macros/Boundaries/ToolHead.g"
