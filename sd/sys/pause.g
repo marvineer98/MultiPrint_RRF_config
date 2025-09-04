@@ -20,10 +20,10 @@ else
 	G90
 
 if state.currentTool >= 0
-	M98 P"/macros/Brush/wipe_activeTool.g" S"doNotLiftZ"
+	M98 P"/macros/Brush/wipeActiveTool.g" S"doNotLiftZ"
 
 ; put current tool away and move to home position
-M98 P"/macros/Movement/move-to-home.g" S"doNotLiftZ"
+M98 P"/macros/Movement/moveToHome.g" S"doNotLiftZ"
 
 ;turn down HEPA filter fan
 M106 P6 S0.3
