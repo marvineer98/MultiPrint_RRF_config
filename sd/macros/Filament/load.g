@@ -44,10 +44,7 @@ else
 	G1 E-1 F1000 			; Retract 1 mm of filament at 1000mm/min
 M400					; Wait for moves to complete
 
-
 ;wipe nozzle of active tool
-M98 P"/macros/Brush/wipe_activeTool.g" S"ZisLifted"
+M98 P"/macros/Brush/wipeActiveTool.g" S"ZisLifted"
 
 M568 A0 				; turn heater off
-
-T-1
