@@ -11,7 +11,7 @@ if {!exists(param.S)} | param.S < 0 | param.S > 2
 
 ; abort if no print is running currently
 if state.status != "processing" && state.status != "simulating"
-	abort "lol error - start_config is only allowed in status processing or simulating"
+	abort "error - start_config is only allowed in status processing or simulating"
 
 ; save first extruder
 var initial_tool = param.S
@@ -42,8 +42,9 @@ M83
 ; home the printer
 G28
 
-; Bed compensation gets enabled
-M98 P"/macros/Heightmap/loadBestFit.g"
+if state.status != "simulating"
+	; Bed compensation gets enabled
+	M98 P"/macros/Heightmap/loadBestFit.g"
 
 ; we wait in tpost for temp of current tool
 ;M116 S8
