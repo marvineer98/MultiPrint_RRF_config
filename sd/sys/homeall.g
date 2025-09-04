@@ -23,4 +23,4 @@ else
 	M98 P"homez.g" S"ZisLifted"	           ; home Z with probe (normal start)
 	
 if {!exists(param.S)}
-	M98 P"/macros/Movement/move-to-home.g" S"DoNotLiftZ"
+	M98 P"/macros/Movement/moveToHome.g" S"DoNotLiftZ"
