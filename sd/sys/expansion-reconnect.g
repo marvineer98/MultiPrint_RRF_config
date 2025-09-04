@@ -4,7 +4,7 @@
 ; P parameter (non-negative integer): additional information about the event, e.g. the subtype of a heater fault or a filament error
 ; S parameter: the full text string describing the fault
 
+; inform user
 echo {param.S}
-; test
 ; run the main config file again
 M98 P"config_main.g"
