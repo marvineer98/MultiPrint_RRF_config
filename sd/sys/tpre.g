@@ -46,7 +46,7 @@ else
 	; move to location for manual change
 	G1 X-50 Y-100 F40000
 	M291 R"Manual tool change" P{"Put Tool "^state.nextTool^" to the ToolHead"} K{"Ok","Abort"} S4
-	if (input == 1)
+	if (input != 0)
     	T-1 P0
 		abort "Cannot change tool - user aborted"
 
@@ -63,13 +63,13 @@ if sensors.gpIn[5] == null || sensors.gpIn[5].value == 0
 
 ; set speed and axes limits for this new tool
 if state.nextTool == 0 || state.nextTool == 1 || state.nextTool == 4
-	M98 P"/macros/Speeds/set_speed.g" L"lightTool"  ; set speeds, jerk and accel. for light weight bowden tool
+	M98 P"/macros/Speeds/set.g" L"lightTool"  ; set speeds, jerk and accel. for light weight bowden tool
 	M98 P"/macros/Boundaries/V6-and-Volcano.g"      ; set new limits for this tool
 elif state.nextTool == 2
-	M98 P"/macros/Speeds/set_speed.g" L"heavyTool" ; set speeds, jerk and accel. for heavy direct tool
+	M98 P"/macros/Speeds/set.g" L"heavyTool" ; set speeds, jerk and accel. for heavy direct tool
 	M98 P"/macros/Boundaries/Hemera-Direct.g"      ; set new limits for this tool
 elif state.nextTool == 3
-	M98 P"/macros/Speeds/set_speed.g" L"spindleTool" ; set speeds, jerk and accel. for very heavy spindle
+	M98 P"/macros/Speeds/set.g" L"spindleTool" ; set speeds, jerk and accel. for very heavy spindle
 	M98 P"/macros/Boundaries/Mill.g"      ; set new limits for this tool
 else
 	M291 P"speed and limits where not set (unknown toolNum)" R"Cannot change tool"
