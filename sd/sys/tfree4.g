@@ -16,21 +16,27 @@ if sensors.gpIn[5] == null || sensors.gpIn[5].value == 0
 M108
 
 G91
-G0 H4 Z{-tools[state.nextTool].offsets[2] + 5}       ; drop the bed
+G0 H4 Z5                                ; drop the bed
 G90
-
 
 G53 G1 X-50 Y-100 F40000                             ; move to location
 
 ; wait for the user
-; TODO: Wrap around while loop to be certan (check against tool detect switch)
-M291 R"Manual tool change" P"Please remove Tool 4 from the ToolHead" S3
+M291 R"Manual tool change" P{"Remove Tool "^state.currentTool^" from the ToolHead. Hold tight!"} K{"Ok","Abort"} S4
+if (input != 0)
+	T-1 P0
+	abort "Cannot change tool - user aborted"
 
 M98 P"/macros/Coupler/unlock.g"                      ; open coupler
 
-
 ;wait for all movements to stop and sync movement queues
 M400
+
+; wait for the user
+M291 R"Manual tool change" P{"Tool "^state.currentTool^" removed?"} K{"Ok","Abort"} S4
+if (input != 0)
+	T-1 P0
+	abort "Cannot change tool - user aborted"
 
 ; check if toolDetectSwitch is active, if so: abort
 if {sensors.gpIn[5] == null || sensors.gpIn[5].value == 1}
@@ -39,7 +45,7 @@ if {sensors.gpIn[5] == null || sensors.gpIn[5].value == 1}
 	abort
 
 ; set speeds, jerk and accel. for no active tool
-M98 P"/macros/Speeds/set_speed.g"
+M98 P"/macros/Speeds/set.g"
 
 ; reset X and Y limits
 M98 P"/macros/Boundaries/ToolHead.g"
