@@ -7,19 +7,8 @@ M550 P"MultiPrint"                                                   ; set print
 M669 K1                                                              ; select CoreXY mode
 M80 C"!pson"                                                         ; invert the PS_ON output for Meanwell power supply
 
-
-; Network
-;M552 P0.0.0.0 S1                                                    ; enable network and set IP address
-;M553 P255.255.255.0                                                 ; set netmask
-;M554 P192.168.1.254                                                 ; set gateway
-;M586 P0 S1                                                          ; enable HTTP
-;M586 P1 S0                                                          ; disable FTP
-;M586 P2 S0                                                          ; disable Telnet
-
-
 ; PanelDue 5.0i with custom logo
 M575 P1 S1 B115200
-
 
 ; wait for expansion boards to start
 G4 S1
@@ -27,7 +16,6 @@ G4 S1
 ; lower SPI transfer max wait Time for quicker system respone (default 25 ms and 5ms if file open)
 ; ignore this if 3 or more events are in queue
 M576 S6 F3 P3
-
 
 ; Define inputs and their trigger if necessary
 M950 J5 C"^io5.in"                                                   ; input 5 - ActiveToolDetect (Tool Detect Switch)
@@ -74,7 +62,7 @@ M584 X0.2 Y0.1 Z0.0 C0.3 B1.0 E0.4:0.5:121.0                         ; set drive
 M350 X16 Y16 Z16 B16 E16:16:16    I1                                 ; configure microstepping with interpolation
 M350 C16 I0                                                          ; configure microstepping without interpolation
 M92 X100 Y100 Z1600 C91.022 B128 E400:400:400                        ; set steps per mm
-M98 P"/macros/Speeds/set_speed.g" S"startup"                         ; set speeds, jerk and accel. for the beginning
+M98 P"/macros/Speeds/set.g" S"startup"                               ; set speeds, jerk and accel. for the beginning
 M566 Z20 C2 B8 E450:900:450                                          ; set maximum instantaneous speed changes (mm/min)
 M203 Z800 C8000 B1000 E4500:5500:4500                                ; set maximum speeds (mm/min)
 M201 Z400 C500 B500 E10000:23000:6000                                ; set accelerations (mm/s^2)
@@ -161,7 +149,7 @@ M106 P6 S0
 
 ; Tools
 M563 P0 S"V6 Bowden" D0 H1 F0                                        ; define tool 0
-G10 P0 X-8.02 Y38.97 Z-4.68                                          ; set tool 0 axis offsets
+G10 P0 X-8.02 Y38.97 Z-4.66                                          ; set tool 0 axis offsets
 G10 P0 R0 S0                                                         ; set initial tool 0 active and standby temperatures to 0C
 M572 D0 S0.2                                                         ; pressure advance T0
 M308 S8 Y"linear-analog" P"1.io0.in" A"T0FilamentScale" B-65 C3240   ; Filament Weight Scale for tool 0
