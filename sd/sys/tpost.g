@@ -15,6 +15,6 @@ G11
 M98 P"/macros/Brush/setHeightToActiveTool.g"
 
 if state.status = "processing"
-	M98 P"/macros/Brush/wipe_activeTool.g" S"ZisLifted"
+	M98 P"/macros/Brush/wipeActiveTool.g" S"ZisLifted"
 
 M106 R1	; restore print cooling fan speed
